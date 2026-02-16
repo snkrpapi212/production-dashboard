@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import '/node_modules/react-grid-layout/css/styles.css';
-import '/node_modules/react-resizable/css/styles.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 
 import { FilterProvider } from './context/FilterContext';
 import GlobalControls from './components/GlobalControls';
@@ -49,7 +49,7 @@ const DashboardContent: React.FC = () => {
     return saved ? JSON.parse(saved) : INITIAL_LAYOUTS;
   });
 
-  const handleLayoutChange = useCallback((currentLayout: any, allLayouts: any) => {
+  const handleLayoutChange = useCallback((_: any, allLayouts: any) => {
     setLayouts(allLayouts);
     localStorage.setItem('dashboard-layout', JSON.stringify(allLayouts));
   }, []);
@@ -111,7 +111,7 @@ const DashboardContent: React.FC = () => {
 
 const WidgetWrapper: React.FC<{ children: React.ReactNode; title: string }> = ({ children, title }) => (
   <ErrorBoundary>
-    <div className="h-full flex flex-col group relative">
+    <div className="h-full flex flex-col group relative" title={title}>
       <div className="drag-handle absolute top-2 right-2 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-move z-10 bg-white/80 rounded border border-gray-200">
         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />

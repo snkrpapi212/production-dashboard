@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Metric, Text, Flex, BadgeDelta, SparkArea, ProgressBar } from '@tremor/react';
+import { Card, Metric, Text, Flex, BadgeDelta, ProgressBar } from '@tremor/react';
 import { useFilters } from '../../context/FilterContext';
 import { dataService } from '../../services/dataService';
 import { KPIData } from '../../types/dashboard';
@@ -37,15 +37,6 @@ const KPIWidget: React.FC = () => {
         <Text>{data.progress}%</Text>
       </Flex>
       <ProgressBar value={data.progress} color="blue" className="mt-2" />
-      <div className="mt-6 h-20">
-        <SparkArea
-          data={data.sparkline}
-          categories={['value']}
-          index="date"
-          colors={['blue']}
-          className="h-full"
-        />
-      </div>
     </Card>
   );
 };

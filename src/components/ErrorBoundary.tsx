@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { Card, Text, Button } from '@tremor/react';
 import { AlertTriangle, RefreshCcw } from 'lucide-react';
 
@@ -45,7 +45,7 @@ class ErrorBoundary extends Component<Props, State> {
       );
     }
 
-    return this.children;
+    return this.props.children;
   }
 }
 
