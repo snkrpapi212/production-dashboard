@@ -60,7 +60,7 @@ const DashboardContent: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col transition-colors">
       <GlobalControls onReset={handleReset} />
       
       <main className="flex-grow p-4 overflow-x-hidden">
@@ -112,12 +112,12 @@ const DashboardContent: React.FC = () => {
 const WidgetWrapper: React.FC<{ children: React.ReactNode; title: string }> = ({ children, title }) => (
   <ErrorBoundary>
     <div className="h-full flex flex-col group relative" title={title}>
-      <div className="drag-handle absolute top-2 right-2 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-move z-10 bg-white/80 rounded border border-gray-200">
+      <div className="drag-handle absolute top-2 right-2 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-move z-10 bg-white/80 dark:bg-gray-800/80 rounded border border-gray-200 dark:border-gray-700">
         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
       </div>
-      <div className="flex-grow h-full overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div className="flex-grow h-full overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-shadow dark:shadow-gray-900">
         {children}
       </div>
     </div>

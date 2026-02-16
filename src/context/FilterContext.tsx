@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { FilterState, DateRange } from '../types/dashboard';
 import { subDays } from 'date-fns';
 
@@ -9,6 +9,8 @@ type FilterContextType = {
   setDateRange: (range: DateRange) => void;
   refreshCount: number;
   triggerRefresh: () => void;
+  darkMode: boolean;
+  toggleDarkMode: () => void;
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -25,6 +27,21 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   });
 
   const [refreshCount, setRefreshCount] = useState(0);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('dashboard-theme');
+    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (darkMode) {
+      root.classList.add('dark');
+      localStorage.setItem('dashboard-theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('dashboard-theme', 'light');
+    }
+  }, [darkMode]);
 
   const setCategories = useCallback((categories: string[]) => {
     setFilters(prev => ({ ...prev, categories }));
@@ -42,6 +59,10 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setRefreshCount(prev => prev + 1);
   }, []);
 
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode(prev => !prev);
+  }, []);
+
   return (
     <FilterContext.Provider value={{
       filters,
@@ -49,7 +70,9 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       setRegions,
       setDateRange,
       refreshCount,
-      triggerRefresh
+      triggerRefresh,
+      darkMode,
+      toggleDarkMode
     }}>
       {children}
     </FilterContext.Provider>

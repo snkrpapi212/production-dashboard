@@ -1,10 +1,10 @@
 import React from 'react';
 import { MultiSelect, MultiSelectItem, DateRangePicker, Button, Flex, Switch, Text } from '@tremor/react';
 import { useFilters } from '../context/FilterContext';
-import { RefreshCcw, Download, Trash2 } from 'lucide-react';
+import { RefreshCcw, Download, Trash2, Moon, Sun } from 'lucide-react';
 
 const GlobalControls: React.FC<{ onReset: () => void }> = ({ onReset }) => {
-  const { filters, setCategories, setRegions, setDateRange, triggerRefresh } = useFilters();
+  const { filters, setCategories, setRegions, setDateRange, triggerRefresh, darkMode, toggleDarkMode } = useFilters();
   const [autoRefresh, setAutoRefresh] = React.useState(false);
 
   React.useEffect(() => {
@@ -16,7 +16,7 @@ const GlobalControls: React.FC<{ onReset: () => void }> = ({ onReset }) => {
   }, [autoRefresh, triggerRefresh]);
 
   return (
-    <div className="bg-white p-4 border-b border-gray-200 sticky top-0 z-50">
+    <div className="bg-white dark:bg-gray-900 p-4 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors">
       <Flex className="gap-4 flex-wrap" justifyContent="start">
         <DateRangePicker
           className="max-w-md w-full"
@@ -46,10 +46,16 @@ const GlobalControls: React.FC<{ onReset: () => void }> = ({ onReset }) => {
 
         <Flex justifyContent="start" className="w-auto gap-2">
           <Switch checked={autoRefresh} onChange={setAutoRefresh} />
-          <Text className="text-sm">Auto-refresh</Text>
+          <Text className="text-sm dark:text-gray-400">Auto-refresh</Text>
         </Flex>
 
         <Flex className="w-auto gap-2 ml-auto">
+          <Button 
+            variant="secondary" 
+            icon={darkMode ? Sun : Moon} 
+            onClick={toggleDarkMode}
+            tooltip={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          />
           <Button 
             variant="secondary" 
             icon={RefreshCcw} 
