@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-slate-900 antialiased;
+  }
+}
+
+/* Custom styles for react-grid-layout to match Tremor cards */
+.react-grid-item {
+  transition: all 200ms ease;
+  transition-property: left, top, width, height;
+}
+
+.react-grid-item.resizing {
+  z-index: 1000;
+  will-change: width, height;
+}
+
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 1001;
+  will-change: transform;
+}
+
+.react-grid-placeholder {
+  @apply bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl !important;
+  opacity: 0.5 !important;
+}
+
+.react-resizable-handle {
+  @apply opacity-0 group-hover:opacity-100 transition-opacity !important;
+}
+
+.react-resizable-handle::after {
+  @apply border-gray-400 !important;
+}
